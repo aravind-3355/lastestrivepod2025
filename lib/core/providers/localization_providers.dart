@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Key for storing selected language code in SharedPreferences
 const _languageCodeKey = 'selected_language_code';
 
-
 /// Provider for persisting and retrieving the user's locale preference
 final savedLocaleProvider = Provider<Locale>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);

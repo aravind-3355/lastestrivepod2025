@@ -34,19 +34,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     if (_formKey.currentState!.validate()) {
       // Close keyboard
       FocusScope.of(context).unfocus();
-      
+
       // Get form values
       final name = _nameController.text.trim();
       final email = _emailController.text.trim();
       final password = _passwordController.text;
-      
+
       // Call register method from auth provider
-      await ref.read(authProvider.notifier).register(
-            name: name,
-            email: email,
-            password: password,
-          );
-      
+      await ref
+          .read(authProvider.notifier)
+          .register(name: name, email: email, password: password);
+
       // Check if registration was successful
       final authState = ref.read(authProvider);
       if (authState.errorMessage != null) {
@@ -66,11 +64,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   Widget build(BuildContext context) {
     // Watch auth state
     final authState = ref.watch(authProvider);
-    
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-      ),
+      appBar: AppBar(title: const Text('Register')),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Center(
@@ -81,19 +77,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(
-                    Icons.flutter_dash,
-                    size: 80,
-                    color: Colors.blue,
-                  ),
+                  const Icon(Icons.flutter_dash, size: 80, color: Colors.blue),
                   const SizedBox(height: 24),
                   const Text(
                     'Create Account',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -101,7 +90,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.7),
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
                     ),
                   ),
                   const SizedBox(height: 32),
@@ -185,7 +174,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         ),
                         onPressed: () {
                           setState(() {
-                            _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                            _isConfirmPasswordVisible =
+                                !_isConfirmPasswordVisible;
                           });
                         },
                       ),
@@ -208,16 +198,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       foregroundColor: Theme.of(context).colorScheme.onPrimary,
                     ),
-                    child: authState.isLoading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          )
-                        : const Text('Register'),
+                    child:
+                        authState.isLoading
+                            ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
+                            )
+                            : const Text('Register'),
                   ),
                   const SizedBox(height: 16),
                   Row(
@@ -226,11 +217,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       Text(
                         'Already have an account?',
                         style: TextStyle(
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.color
-                              ?.withOpacity(0.7),
+                          color: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.color?.withOpacity(0.7),
                         ),
                       ),
                       TextButton(

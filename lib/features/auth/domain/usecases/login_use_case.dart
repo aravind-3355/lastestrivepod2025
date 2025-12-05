@@ -7,18 +7,20 @@ import 'package:flutter_riverpod_clean_architecture/features/auth/data/repositor
 
 class LoginUseCase {
   final AuthRepository _repository;
-  
+
   LoginUseCase(this._repository);
-  
+
   Future<Either<Failure, UserEntity>> execute({
-    required String email, 
+    required String email,
     required String password,
   }) {
     // Add any validation logic here if needed
     if (email.isEmpty || password.isEmpty) {
-      return Future.value(const Left(InputFailure(message: 'Email and password cannot be empty')));
+      return Future.value(
+        const Left(InputFailure(message: 'Email and password cannot be empty')),
+      );
     }
-    
+
     return _repository.login(email: email, password: password);
   }
 }

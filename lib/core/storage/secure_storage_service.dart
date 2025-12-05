@@ -8,14 +8,12 @@ class SecureStorageService {
 
   // Default constructor
   factory SecureStorageService.create() {
-    return SecureStorageService(const FlutterSecureStorage(
-      aOptions: AndroidOptions(
-        encryptedSharedPreferences: true,
+    return SecureStorageService(
+      const FlutterSecureStorage(
+        aOptions: AndroidOptions(encryptedSharedPreferences: true),
+        iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
       ),
-      iOptions: IOSOptions(
-        accessibility: KeychainAccessibility.first_unlock,
-      ),
-    ));
+    );
   }
 
   // Write value

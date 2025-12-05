@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -298,7 +300,6 @@ abstract class OfflineSyncService {
 class HiveOfflineSyncService implements OfflineSyncService {
   final Box<String> _box;
   final Connectivity _connectivity;
-  final ConflictResolutionStrategy _conflictStrategy;
   final Lock _syncLock = Lock();
 
   final _uuid = const Uuid();
@@ -311,8 +312,7 @@ class HiveOfflineSyncService implements OfflineSyncService {
     required Connectivity connectivity,
     ConflictResolutionStrategy? conflictStrategy,
   }) : _box = box,
-       _connectivity = connectivity,
-       _conflictStrategy = conflictStrategy ?? ServerWinsStrategy();
+       _connectivity = connectivity;
 
   @override
   Future<void> init() async {

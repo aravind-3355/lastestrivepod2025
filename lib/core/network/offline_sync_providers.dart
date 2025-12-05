@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks, library_private_types_in_public_api
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -188,7 +190,7 @@ class _ErrorOfflineSyncService implements OfflineSyncService {
 /// Widget that shows offline status and syncing status
 class OfflineStatusIndicator extends ConsumerWidget {
   /// Create an offline status indicator
-  const OfflineStatusIndicator({Key? key}) : super(key: key);
+  const OfflineStatusIndicator({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -294,8 +296,7 @@ class RotatingIcon extends StatefulWidget {
   final Color color;
 
   /// Create a rotating icon
-  const RotatingIcon({Key? key, required this.icon, required this.color})
-    : super(key: key);
+  const RotatingIcon({super.key, required this.icon, required this.color});
 
   @override
   _RotatingIconState createState() => _RotatingIconState();

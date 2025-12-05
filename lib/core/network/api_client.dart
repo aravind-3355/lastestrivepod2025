@@ -15,18 +15,23 @@ class ApiClient {
     };
 
     // Add interceptors for logging
-    _dio.interceptors.add(LogInterceptor(
-      request: true,
-      requestHeader: true,
-      requestBody: true,
-      responseHeader: true,
-      responseBody: true,
-      error: true,
-    ));
+    _dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestHeader: true,
+        requestBody: true,
+        responseHeader: true,
+        responseBody: true,
+        error: true,
+      ),
+    );
   }
 
   // GET request
-  Future<dynamic> get(String path, {Map<String, dynamic>? queryParameters}) async {
+  Future<dynamic> get(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+  }) async {
     try {
       final response = await _dio.get(path, queryParameters: queryParameters);
       return response.data;
@@ -89,7 +94,8 @@ class ApiClient {
             throw ServerException(message: e.response?.data['message']);
           default:
             throw ServerException(
-                message: e.response?.data['message'] ?? 'Unknown error occurred');
+              message: e.response?.data['message'] ?? 'Unknown error occurred',
+            );
         }
       case DioExceptionType.cancel:
         throw RequestCancelledException();

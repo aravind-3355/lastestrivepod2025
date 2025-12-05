@@ -1,13 +1,15 @@
 // Base Use Case Interface
 // Defines the contract for all use cases in the application
 
+// ignore_for_file: avoid_types_as_parameter_names
+
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 import '../error/failures.dart';
 
 /// Base interface for all use cases
-/// 
+///
 /// [Type] - The return type of the use case
 /// [Params] - The parameters required by the use case
 abstract class UseCase<Type, Params> {

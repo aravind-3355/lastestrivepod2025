@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod_clean_architecture/core/constants/app_constants.dart';
@@ -90,11 +92,11 @@ class UpdateChecker extends ConsumerWidget {
 
   /// Create an update checker
   const UpdateChecker({
-    Key? key,
+    super.key,
     required this.child,
     this.autoPrompt = true,
     this.enforceCriticalUpdates = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -146,10 +148,10 @@ class UpdateDialog extends ConsumerWidget {
 
   /// Create an update dialog
   const UpdateDialog({
-    Key? key,
+    super.key,
     required this.updateInfo,
     this.isCritical = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

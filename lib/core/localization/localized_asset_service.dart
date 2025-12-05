@@ -39,14 +39,14 @@ class LocalizedImage extends ConsumerWidget {
   final bool useCommonPath;
 
   const LocalizedImage({
-    Key? key,
+    super.key,
     required this.imageName,
     this.width,
     this.height,
     this.fit,
     this.color,
     this.useCommonPath = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -76,7 +76,7 @@ class LocalizedImage extends ConsumerWidget {
             return Container(
               width: width,
               height: height,
-              color: Colors.grey.withOpacity(0.3),
+              color: Colors.grey,
               child: const Icon(Icons.broken_image, color: Colors.grey),
             );
           },

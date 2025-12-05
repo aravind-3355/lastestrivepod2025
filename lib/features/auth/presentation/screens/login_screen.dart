@@ -29,14 +29,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       // Close keyboard
       FocusScope.of(context).unfocus();
-      
+
       // Get email and password
       final email = _emailController.text.trim();
       final password = _passwordController.text;
-      
+
       // Call login method from auth provider
-      await ref.read(authProvider.notifier).login(email: email, password: password);
-      
+      await ref
+          .read(authProvider.notifier)
+          .login(email: email, password: password);
+
       // Check if login was successful
       final authState = ref.read(authProvider);
       if (authState.errorMessage != null) {
@@ -56,11 +58,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     // Watch auth state
     final authState = ref.watch(authProvider);
-    
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
+      appBar: AppBar(title: const Text('Login')),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Center(
@@ -71,19 +71,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(
-                    Icons.flutter_dash,
-                    size: 100,
-                    color: Colors.blue,
-                  ),
+                  const Icon(Icons.flutter_dash, size: 100, color: Colors.blue),
                   const SizedBox(height: 32),
                   const Text(
                     'Welcome Back!',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -91,7 +84,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.7),
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
                     ),
                   ),
                   const SizedBox(height: 32),
@@ -158,16 +151,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       foregroundColor: Theme.of(context).colorScheme.onPrimary,
                     ),
-                    child: authState.isLoading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          )
-                        : const Text('Log In'),
+                    child:
+                        authState.isLoading
+                            ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
+                            )
+                            : const Text('Log In'),
                   ),
                   const SizedBox(height: 16),
                   Row(
@@ -176,11 +170,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       Text(
                         "Don't have an account?",
                         style: TextStyle(
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.color
-                              ?.withOpacity(0.7),
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
                         ),
                       ),
                       TextButton(

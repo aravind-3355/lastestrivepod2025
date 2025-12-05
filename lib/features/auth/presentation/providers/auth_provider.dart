@@ -43,16 +43,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required LoginUseCase loginUseCase,
     required LogoutUseCase logoutUseCase,
     required RegisterUseCase registerUseCase,
-  })  : _loginUseCase = loginUseCase,
-        _logoutUseCase = logoutUseCase,
-        _registerUseCase = registerUseCase,
-        super(const AuthState());
+  }) : _loginUseCase = loginUseCase,
+       _logoutUseCase = logoutUseCase,
+       _registerUseCase = registerUseCase,
+       super(const AuthState());
 
   // Check auth status
   Future<void> checkAuthStatus() async {
     // Here you would typically check if there's a valid token stored
     // and validate it with your API if necessary
-    
+
     // For now, we'll just return false
     state = state.copyWith(isAuthenticated: false, user: null);
   }
@@ -60,24 +60,26 @@ class AuthNotifier extends StateNotifier<AuthState> {
   // Login
   Future<void> login({required String email, required String password}) async {
     state = state.copyWith(isLoading: true, errorMessage: null);
-    
+
     final result = await _loginUseCase.execute(
       email: email,
       password: password,
     );
-    
+
     result.fold(
-      (failure) => state = state.copyWith(
-        isLoading: false,
-        isAuthenticated: false,
-        errorMessage: failure.message,
-      ),
-      (user) => state = state.copyWith(
-        isLoading: false,
-        isAuthenticated: true,
-        user: user,
-        errorMessage: null,
-      ),
+      (failure) =>
+          state = state.copyWith(
+            isLoading: false,
+            isAuthenticated: false,
+            errorMessage: failure.message,
+          ),
+      (user) =>
+          state = state.copyWith(
+            isLoading: false,
+            isAuthenticated: true,
+            user: user,
+            errorMessage: null,
+          ),
     );
   }
 
@@ -88,45 +90,49 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required String password,
   }) async {
     state = state.copyWith(isLoading: true, errorMessage: null);
-    
+
     final result = await _registerUseCase.execute(
       name: name,
       email: email,
       password: password,
     );
-    
+
     result.fold(
-      (failure) => state = state.copyWith(
-        isLoading: false,
-        isAuthenticated: false,
-        errorMessage: failure.message,
-      ),
-      (user) => state = state.copyWith(
-        isLoading: false,
-        isAuthenticated: true,
-        user: user,
-        errorMessage: null,
-      ),
+      (failure) =>
+          state = state.copyWith(
+            isLoading: false,
+            isAuthenticated: false,
+            errorMessage: failure.message,
+          ),
+      (user) =>
+          state = state.copyWith(
+            isLoading: false,
+            isAuthenticated: true,
+            user: user,
+            errorMessage: null,
+          ),
     );
   }
 
   // Logout
   Future<void> logout() async {
     state = state.copyWith(isLoading: true, errorMessage: null);
-    
+
     final result = await _logoutUseCase.execute();
-    
+
     result.fold(
-      (failure) => state = state.copyWith(
-        isLoading: false,
-        errorMessage: failure.message,
-      ),
-      (_) => state = state.copyWith(
-        isLoading: false,
-        isAuthenticated: false,
-        user: null,
-        errorMessage: null,
-      ),
+      (failure) =>
+          state = state.copyWith(
+            isLoading: false,
+            errorMessage: failure.message,
+          ),
+      (_) =>
+          state = state.copyWith(
+            isLoading: false,
+            isAuthenticated: false,
+            user: null,
+            errorMessage: null,
+          ),
     );
   }
 }
@@ -136,7 +142,7 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final loginUseCase = ref.watch(loginUseCaseProvider);
   final logoutUseCase = ref.watch(logoutUseCaseProvider);
   final registerUseCase = ref.watch(registerUseCaseProvider);
-  
+
   return AuthNotifier(
     loginUseCase: loginUseCase,
     logoutUseCase: logoutUseCase,
