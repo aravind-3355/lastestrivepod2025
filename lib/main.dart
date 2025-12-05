@@ -56,7 +56,7 @@ class MyApp extends ConsumerWidget {
     final locale = ref.watch(persistentLocaleProvider);
 
     return UpdateChecker(
-      autoPrompt: true,
+      autoPrompt: false,
       enforceCriticalUpdates: true,
       child: AccessibilityWrapper(
         child: MaterialApp.router(
